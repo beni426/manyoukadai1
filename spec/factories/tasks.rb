@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :task do
-    title { "1/2" }
-    content { "funny" }
+    title { '付け加えた名前1' }
+    content { '付け加えたコンテント1' }
   end
-  factory :second_task do
-    title { "1/3" }
-    content { "funny3" }
+  factory :second_task,class:Task do
+    title { 'Factoryで作ったデフォルトのタイトル２' }
+    content { 'Factoryで作ったデフォルトのコンテント２'}
   end
 end
