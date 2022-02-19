@@ -1,21 +1,19 @@
-<h1> <%= t("activerecord.models.task") %>一覧</h1>
+<h1 class="title" > <%= t("activerecord.models.task") %>一覧</h1>
 <p><%= notice %></p>
 
 <table>
   <tr>
     <th><%= t("activerecord.attributes.task.title") %></th>
-    
     <th><%= t("activerecord.attributes.task.content") %></tr>
    </tr>
  <% @tasks.each do |task| %>
     <tr>
-       <td><%= task.title %></td>
-       <td><%= task.content %></td>
-       <td><%= link_to t('tasks.show.title'), task_path(task.id) %></td>
-       <td><%= link_to t('tasks.edit.title'), edit_task_path(task.id) %></td>
-       <td><%= link_to t('tasks.destroy.title'), task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %></td>
-
-    </tr>
+       <td td class="index-content"><%= task.title %></td>
+       <td td class="index-content"><%= task.content %></td>
+       <td td class="index-content"><%= link_to t('tasks.show.title'), task_path(task.id) %></td>
+       <td td class="index-content"><%= link_to t('tasks.edit.title'), edit_task_path(task.id) %></td>
+       <td td class="index-content"><%= link_to t('tasks.destroy.title'), task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %></td>
+   </tr>
  <% end %>
 </table>
 <br>
