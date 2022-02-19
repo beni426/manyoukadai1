@@ -3,6 +3,6 @@
 <%= form_with(model: @task, local: true,class:"blog_wrapper") do |form| %>
   <%= form.hidden_field :title %>
   <%= form.hidden_field :content %>
-  <p>タイトル:<%= @task.title %></p>
-  <p>本文:<%= @task.content %></p>
+  <p><%= t("activerecord.attributes.task.title") %>:<%= @task.title %></p>
+  <p><%= t("activerecord.attributes.task.content") %>:<%= @task.content %></p>
 <% end %>
