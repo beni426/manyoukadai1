@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :basic_authentication, only: :show
+  # before_action :basic_authentication, only: :show
   before_action :set_task, only: %i[show  edit update destroy]
   def index
     @tasks =Task.all.order(created_at: :desc)

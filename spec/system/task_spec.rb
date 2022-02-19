@@ -1,4 +1,5 @@
 require 'rails_helper'
+
 RSpec.describe 'タスク管理機能', type: :system do
   before do
         FactoryBot.create(:task,title: '付け加えた名前1',content:'付け加えたコンテント1')
@@ -28,7 +29,6 @@ RSpec.describe 'タスク管理機能', type: :system do
       it '新しいタスクが一番上に表示される' do
         visit tasks_path
         task_test = all('td').first
-      
         expect(task_test).to have_content "付け加えた名前2"
         save_and_open_page
      
