@@ -11,6 +11,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit new_task_path
         fill_in 'タイトル', with: 'test1'
         fill_in '詳細', with: 'tsrs is test1'
+        fill_in '終了期限', with: '2/12'
         click_button '登録'
         expect(page).to have_content 'タスクを作成しました!'
         expect(current_path).to eq '/tasks'
@@ -31,7 +32,15 @@ RSpec.describe 'タスク管理機能', type: :system do
         task_test = all('td').first
         expect(task_test).to have_content "付け加えた名前2"
         save_and_open_page
-     
+     end
+    end
+     context "終了期限でソートするテスト場合" do
+      it "終了期限が最も未来のタスクが一番上に表示される" do
+        visit tasks_path
+        click_on '終了期限でソートする'
+        task_test = all('td').first
+        expect(task_test).to have_content "付け加えた名前2"
+        save_and_open_page
       end
     end
   end

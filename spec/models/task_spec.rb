@@ -15,9 +15,15 @@ RSpec.describe Task, type: :model do
         expect(task).not_to be_valid
       end
     end
+    context 'タスクの終了期限が空の場合' do
+      it 'バリデーションにひっかかる' do
+        task = Task.new(title: '失敗テスト', content: '失敗test',expired_at: nil )
+        expect(task).not_to be_valid
+      end
+    end
     context 'タスクのタイトルと詳細に内容が記載されている場合' do
       it 'バリデーションが通る' do
-        task = Task.new(title: '成功テスト', content: '成功テスト')
+        task = Task.new(title: '成功テスト', content: '成功テスト',expired_at:'2/12')
         expect(task).to be_valid
       end
     end
