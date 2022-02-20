@@ -17,6 +17,10 @@
     <%= form.label :content %>
     <%= form.text_field :content %>
   </div>
+  <div class="task_title">
+    <%= form.label :expired_at %>
+    <%= form.text_field :expired_at,class: "form-control", placeholder: "1/1" %>
+  </div>
   <%= form.submit %>
 <% end %>
 <%= link_to "タスク一覧画面にもどる", tasks_path %>
