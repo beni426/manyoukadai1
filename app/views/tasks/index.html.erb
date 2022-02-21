@@ -14,6 +14,7 @@
     <th><%= t("activerecord.attributes.task.content") %></th>
     <th><%= t("activerecord.attributes.task.expired_at") %></th>
     <th><%= t("activerecord.attributes.task.status") %></th>
+    <th><%= t("activerecord.attributes.task.priority") %></th>
     <th colspan="3"></th>
 
    </tr>
@@ -23,6 +24,7 @@
       <td class="index-content"><%= task.content %></td>
       <td class="index-content"><%= task.expired_at.to_s(:datetime_jp) %> </td>
       <td class="index-content"><%= task.status %></td>
+      <td class="index-content"><%= task.priority %></td>
       <td class="index-content"><%= link_to t('tasks.show.title'), task_path(task.id) %></td>
       <td class="index-content"><%= link_to t('tasks.edit.title'), edit_task_path(task.id) %></td>
       <td class="index-content"><%= link_to t('tasks.destroy.title'), task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %></td> 
@@ -32,5 +34,6 @@
 
 </table>
 <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
+<%= link_to "優先順位が高い順にソート", tasks_path(sort_priority: "true") %>
 <br>
 <%= link_to t("activerecord.models.task")+'を作成する', new_task_path %>

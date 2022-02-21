@@ -13,6 +13,8 @@ class TasksController < ApplicationController
       end
     elsif params[:status].present?
       @tasks = Task.all.status_search(params[:status])
+    elsif params[:sort_priority]
+      @tasks = Task.all.order(priority: :desc)
     else
       @tasks = Task.all.order(created_at: :desc)
     end
@@ -53,7 +55,9 @@ class TasksController < ApplicationController
        :title,
        :content,
        :expired_at,
-       :status)
+       :status,
+       :priority 
+      )
   end
   def set_task
     @task = Task.find(params[:id])

@@ -13,17 +13,21 @@
     <%= form.label :title %>
     <%= form.text_field :title %>
   </div>
-  <div class="task_title">
+  <div class="task_content">
     <%= form.label :content %>
     <%= form.text_field :content %>
   </div>
-  <div class="task_title">
+  <div class="task_expired_at">
     <%= form.label :expired_at %>
     <%= form.text_field :expired_at,class: "form-control", placeholder: "1/1" %>
   </div>
-   <div class="task_title">
+   <div class="task_status">
     <%= form.label :status %>
     <%= form.select :status, ["todo","doing","Done"] %>
+  </div>
+    <div class="task_priority">
+    <%= form.label :priority %>
+    <%= form.select :priority, ['low','medium','high'] %>
   </div>
   <%= form.submit %>
 <% end %>
