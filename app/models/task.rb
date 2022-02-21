@@ -4,5 +4,14 @@ class Task < ApplicationRecord
     validates :content, presence: true
     validates :expired_at, presence: true
     enum status: { todo: 'todo', doing: 'doing', done: 'done' }
-   
+
+    scope :task_name_search, -> (query) {where("title LIKE ?", "%#{query}%")}
+	def task_name_search(query)
+	  where("title LIKE ?", "%#{query}%")
+	end
+
+   scope :status_search, -> (query) {where(status: query)}
+   def status_search(query)
+    where(status: query)
+   end
 end
