@@ -30,7 +30,7 @@
       <td class="index-content"><%= link_to t('tasks.destroy.title'), task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %></td> 
     </tr>
  <% end %> 
-  <%# <%= paginate @tasks %> 
+  <%= paginate @tasks %> 
 
 </table>
 <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
