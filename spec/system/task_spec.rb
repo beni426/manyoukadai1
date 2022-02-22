@@ -1,6 +1,36 @@
 require 'rails_helper'
 
 RSpec.describe 'タスク管理機能', type: :system do
+  describe '検索機能' do
+    before do
+      FactoryBot.create(:task, title: "task",status:'todo')
+      FactoryBot.create(:second_task, title: "sample")
+    end
+
+    context 'タイトルであいまい検索をした場合' do
+      it "検索キーワードを含むタスクで絞り込まれる" do
+        visit tasks_path
+        fill_in 'title', with: 'task'
+        click_button 'search'
+        expect(page).to have_content 'task'
+      end
+    end
+    context 'ステータス検索をした場合' do
+      let!(:task_1){FactoryBot.create(:task, title:'タスク1',status: 'todo')}
+      it "ステータスに完全一致するタスクが絞り込まれる" do
+        expect(Task.status_search('todo')).to include(task_1)
+      end
+    end
+    context 'タイトルのあいまい検索とステータス検索をした場合' do
+      it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
+        visit tasks_path
+        fill_in 'title', with: "task"
+        select 'todo',from: :status
+        click_button 'search'
+        expect(Task.task_name_search('task').status_search('todo')).to include(Task)
+      end
+    end
+  end
   before do
         FactoryBot.create(:task,title: '付け加えた名前1',content:'付け加えたコンテント1')
         FactoryBot.create(:second_task,title:'付け加えた名前2',content:'付け加えたコンテント2')
@@ -12,6 +42,8 @@ RSpec.describe 'タスク管理機能', type: :system do
         fill_in 'タイトル', with: 'test1'
         fill_in '詳細', with: 'tsrs is test1'
         fill_in '終了期限', with: '2/12'
+    
+        select 'todo',from: :ステータス
         click_button '登録'
         expect(page).to have_content 'タスクを作成しました!'
         expect(current_path).to eq '/tasks'
@@ -23,7 +55,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       it '作成済みのタスク一覧が表示される' do
         task = FactoryBot.create(:task,title:'付け加えた名前1')
          visit tasks_path
-          expect(page).to have_content '付け加えたコンテント1'
+        expect(page).to have_content '付け加えたコンテント1'
       end
      end
      context 'タスクが作成日時の降順に並んでいる場合' do
@@ -37,7 +69,7 @@ RSpec.describe 'タスク管理機能', type: :system do
      context "終了期限でソートするテスト場合" do
       it "終了期限が最も未来のタスクが一番上に表示される" do
         visit tasks_path
-        click_on '終了期限でソートする'
+        click_on '終了期限'
         task_test = all('td').first
         expect(task_test).to have_content "付け加えた名前2"
         save_and_open_page

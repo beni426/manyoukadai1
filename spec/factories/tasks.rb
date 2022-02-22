@@ -3,6 +3,7 @@ FactoryBot.define do
     title { 'Title 1' }
     content { 'undefined1' }
     expired_at  { '2020/12/01' }
+    status { 'todo' }
     
   end
 
@@ -10,6 +11,7 @@ FactoryBot.define do
     title { 'Title 2' }
     content { 'undefined2' }
     expired_at { '2020/12/02' }
+    status { 'done' }
     
   end
 end

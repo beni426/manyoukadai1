@@ -1,20 +1,32 @@
 <h1 class="title" > <%= t("activerecord.models.task") %>一覧</h1>
 <p><%= notice %></p>
- <%= form_with url: tasks_path, method: :get , local: true do |form| %>
-  <%= form.label :task_title, "Task Title:" %>
-  <%= form.text_field :title, placeholder: "検索..." %>
+<div class ='search-container' >
+  <div>
+   <%= form_with url: tasks_path, method: :get ,class:'row', local: true do |form| %>
+   <div class="col-md-4">
+     <%= form.label :task_title, "Task Title:" %>
+    <%= form.text_field :title, placeholder: "検索..." %>
+   </div>
+   <div class="col-md-4">
   <%= form.label :status, t("activerecord.attributes.task.status")  %>
-  <%= form.select :status, options_for_select([[''],['todo'], ['doing'], ['done']])%>
+  <%= form.select :status, options_for_select([[''], ["todo"],["doing"], ["done"]])%>
+  </div>
+  <div class="col-md-3">
   <%= form.submit value: "search", type: "submit" %>
+  </div>
 <% end %>
+</div>
+</div>
+<br>
+<%= button_to t("activerecord.models.task")+'を作成', new_task_path,method: :get,class:'btn btn-primary' %>
 
 <table>
   <tr>
-    <th><%= t("activerecord.attributes.task.title") %></th>
-    <th><%= t("activerecord.attributes.task.content") %></th>
-    <th><%= t("activerecord.attributes.task.expired_at") %></th>
-    <th><%= t("activerecord.attributes.task.status") %></th>
-    <th><%= t("activerecord.attributes.task.priority") %></th>
+    <th class='index'><%= t("activerecord.attributes.task.title") %></th>
+    <th class='index'><%= t("activerecord.attributes.task.content") %></th>
+    <th class='index'><%= link_to "終了期限", tasks_path(sort_expired: "true"),class:'btn btn-primary' %></th>
+    <th class='index'><%= t("activerecord.attributes.task.status") %></th>
+    <th class='index'><%= link_to "優先順位", tasks_path(sort_priority: "true"),class:'btn btn-primary' %></th>
     <th colspan="3"></th>
 
    </tr>
@@ -25,15 +37,15 @@
       <td class="index-content"><%= task.expired_at.to_s(:datetime_jp) %> </td>
       <td class="index-content"><%= task.status %></td>
       <td class="index-content"><%= task.priority %></td>
-      <td class="index-content"><%= link_to t('tasks.show.title'), task_path(task.id) %></td>
-      <td class="index-content"><%= link_to t('tasks.edit.title'), edit_task_path(task.id) %></td>
-      <td class="index-content"><%= link_to t('tasks.destroy.title'), task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %></td> 
+      <td class="index-content"><%= button_to t('tasks.show.title'), task_path(task.id),method: :get %></td>
+      <td class="index-content"><%= button_to t('tasks.edit.title'), edit_task_path(task.id),method: :get %></td>
+      <td class="index-content"><%= button_to t('tasks.destroy.title'), task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %></td> 
     </tr>
  <% end %> 
   <%= paginate @tasks %> 
 
 </table>
-<%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
-<%= link_to "優先順位が高い順にソート", tasks_path(sort_priority: "true") %>
+
+
 <br>
-<%= link_to t("activerecord.models.task")+'を作成する', new_task_path %>
+
