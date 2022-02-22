@@ -75,6 +75,15 @@ RSpec.describe 'タスク管理機能', type: :system do
         save_and_open_page
       end
     end
+    context "優先順位でソートするテスト場合" do
+      it "優先順位が最も高いのタスクが一番上に表示される" do
+        visit tasks_path
+        click_on '優先順位'
+        task_test = all('td').first
+        expect(task_test).to have_content "付け加えた名前2"
+        save_and_open_page
+      end
+    end
   end
   describe '詳細表示機能' do
     let!(:task_1){FactoryBot.create(:task, title:'タスク1',content: 'タスク１のcontent')}
