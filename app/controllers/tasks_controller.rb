@@ -2,7 +2,22 @@ class TasksController < ApplicationController
   # before_action :basic_authentication, only: :show
   before_action :set_task, only: %i[show  edit update destroy]
   def index
-    @tasks =Task.all.order(created_at: :desc)
+    if params[:sort_expired]
+      @tasks = Task.all.page(params[:page]).per(3).order(expired_at: :desc)
+    elsif params[:title].present?
+      if params[:status].present?
+        @tasks = Task.all.task_name_search(params[:title]).status_search(params[:status]).page(params[:page]).per(10)
+        
+      else
+        @tasks = Task.all.task_name_search(params[:title]).page(params[:page]).per(3)
+      end
+    elsif params[:status].present?
+      @tasks = Task.all.status_search(params[:status]).page(params[:page]).per(3)
+    elsif params[:sort_priority]
+      @tasks = Task.all.page(params[:page]).per(3).order(priority: :desc)
+    else
+      @tasks = Task.all.page(params[:page]).per(3).order(created_at: :desc)
+    end
   end
   def new
     @task =Task.new
@@ -36,7 +51,13 @@ class TasksController < ApplicationController
   end
   private
   def task_params
-    params.require(:task).permit(:title,:content)
+    params.require(:task).permit(
+       :title,
+       :content,
+       :expired_at,
+       :status,
+       :priority 
+      )
   end
   def set_task
     @task = Task.find(params[:id])

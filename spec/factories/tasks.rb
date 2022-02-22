@@ -1,10 +1,17 @@
 FactoryBot.define do
   factory :task do
-    title { '付け加えた名前2' }
-    content { '付け加えたコンテント2' }
+    title { 'Title 1' }
+    content { 'undefined1' }
+    expired_at  { '2020/12/01' }
+    status { 'todo' }
+    
   end
-  factory :second_task,class:Task do
-    title { '付け加えた名前2' }
-    content { 'Factoryで作ったデフォルトのコンテント２'}
+
+  factory :second_task, class: Task do
+    title { 'Title 2' }
+    content { 'undefined2' }
+    expired_at { '2020/12/02' }
+    status { 'done' }
+    
   end
 end

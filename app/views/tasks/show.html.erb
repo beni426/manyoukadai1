@@ -3,6 +3,10 @@
 <%= form_with(model: @task, local: true,class:"blog_wrapper") do |form| %>
   <%= form.hidden_field :title %>
   <%= form.hidden_field :content %>
+  <%= form.hidden_field :expired_at %>
+  <%= form.hidden_field :status %>
   <p><%= t("activerecord.attributes.task.title") %>:<%= @task.title %></p>
   <p><%= t("activerecord.attributes.task.content") %>:<%= @task.content %></p>
+  <p><%= t("activerecord.attributes.task.expired_at") %>:<%= @task.expired_at.to_s(:datetime_jp)  %></p>
+  <p><%= t("activerecord.attributes.task.status") %>:<%= @task.status  %></p>
 <% end %>
