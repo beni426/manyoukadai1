@@ -13,6 +13,7 @@ gem 'psych', '~> 3.1'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rails-i18n'
 gem 'enum_help'
+gem 'faker'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
