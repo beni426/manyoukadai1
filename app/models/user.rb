@@ -6,4 +6,5 @@ class User < ApplicationRecord
     before_validation {email.downcase!}
     has_secure_password
     validates :password, length: {minimum: 6}, allow_nil: true
+    has_many :tasks
 end
