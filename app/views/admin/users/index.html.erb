@@ -1,0 +1,8 @@
+<h1>管理画面のユーザー一覧画面</h1>
+
+<% @users.each do |user| %>
+<%= user.id %>: <%= user.name %>
+<% end %>
+<% if current_user.admin? %>
+<li><%= link_to "プロフィールを編集",edit_user_path(@user) %></li>
+<% end %>
