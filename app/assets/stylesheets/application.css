@@ -29,4 +29,30 @@
      color: black;
 
  }
+ .login-form{
+    background: #fff;
+    padding: 4em 4em 2em;
+    max-width: 400px;
+    margin: 50px auto 0;
+    box-shadow: 0 0 1em #222;
+    border-radius: 2px;
+    h1 {
+      margin: 0 0 50px 0;
+      padding:10px;
+      text-align:center;
+      font-size:30px;
+      color:darken(#e5e5e5, 50%);
+      border-bottom:solid 1px #e5e5e5;
+    }
+    p {
+      margin: 0 0 3em 0;
+      position: relative;
+    }
+
+}
+.row{
+   background-color: rgb(235, 227, 227);
+   list-style: none;
+   height: 30px;
+}
 

@@ -1,8 +1,8 @@
-<div class="login-form-wrapper">
-  <div class="login-form-header">
-    <h1 class="login-form-title">管理者登録ページ</h1>
+<div class="admin-form-wrapper">
+  <div class="admin-form-header">
+    <h1 class="admin-form-title">管理者登録ページ</h1>
   </div>
-  <%= form_with(model: user, local: true, class: "login-form") do |form| %>
+  <%= form_with(model: @user,url: choose_new_or_edit,local: true, class: "login-form") do |form| %>
       <% if @user.errors.any? %>
     <div class="alert alert-danger alert-login">
      <h3><%= pluralize(@user.errors.count, "error", locale: :en)  %> prohibited this <%= @user.name %> from being saved:</h3>
@@ -13,18 +13,15 @@
     </ul>
    </div>
    <% end %>
-    <h2 class="login-form-subtitle">登録しているユーザーを編集する</h2>
-    <%= image_tag(user.image.url, class: "form-user-image") if user.image && user.image.url %>
-    <%= form.label :email, class: "sri" %>
-    <%= form.email_field :email, class: "form-control", placeholder: t("views.users.email"), required: true, autofocus: true %>
+    <h2 class="login-form-subtitle">管理者を編集する</h2>
+    <%= form.label :name, class: "sr-only" %>
     <%= form.text_field :name, class: "form-control", placeholder: t("views.users.name"), required: true %>
-    <%= form.label :image, class: "sri" %>
-    <%= form.file_field :image, class: "form-control", accept: "image/jpg, image/jpeg, image/png, image/gif" %>
-    <%= form.hidden_field :image_cache %>
-    <%= form.label :password, class: "sri" %>
-    <%= form.password_field :password, class: "form-control", placeholder: t("views.users.password"), required: true, minlength: 6 %>
-    <%= form.label :password, class: "sri" %>
-    <%= form.password_field :password_confirmation, class: "form-control", placeholder: t("views.users.password_confirmation"), required: true %>
+    <%= form.label :email, class: "sr-only" %>
+    <%= form.email_field :email, class: "form-control", placeholder: t("views.users.email"), required: true, autofocus: true %>
+    <%= form.label :password, class: "sr-only" %>
+    <%= form.password_field :password, class: "form-control", placeholder: 'password', required: true, minlength: 6 %>
+    <%= form.label :password, class: "sr-only" %>
+    <%= form.password_field :password_confirmation, class: "form-control", placeholder: 'password confirmation', required: true %>
     <%= form.submit "登録する", class: "btn-primary", id: "active-btn" %>
     <p class="explanation-rule">登録することで、本規約、データに関するポリシーに同意するものとします。</p>
   <% end %>

@@ -1,8 +1,8 @@
 class Admin::UsersController < ApplicationController
  skip_before_action :login_required, only: %i[new create] 
-  before_action :if_not_admin
+ 
   before_action :set_user, only: %i[show edit update destroy]  
-  before_action :check_user, only: %i[edit update destroy] 
+  before_action :require_admin, only: %i[edit update destroy] 
   def index
   @users = User.all
   end
@@ -31,20 +31,25 @@ class Admin::UsersController < ApplicationController
    end
   end
   def destroy
-    @user.destroy
+    @admin_user.destroy
     flash[:danger] = "ユーザーを削除しました!"
      redirect_to new_user_path
   end
   private
   def user_params
-    params.require(:user).permit(:name, :email,
-       :password, :password_confirmation, :image, :image_cache)
+    params.require(:user).permit(:name, :email,:admin,
+       :password, :password_confirmation)
   end
   def set_user
     @user = User.find(params[:id])
   end
  
-  def if_not_admin
-    redirect_to root_path unless current_user.admin?
-  end
+  def require_admin
+    if logged_in? && current_user.admin == true
+        redirect_to new_admin_user_path
+    else
+        render action: :edit
+        flash[:alert] = "管理者画面です"
+    end
+    end
 end

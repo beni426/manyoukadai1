@@ -30,6 +30,7 @@
     <th colspan="3"></th>
 
    </tr>
+
  <% @tasks.each do |task| %>
     <tr>
       <td class="index-content"><%= task.title %></td>
@@ -42,6 +43,7 @@
       <td class="index-content"><%= button_to t('tasks.destroy.title'), task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %></td> 
     </tr>
  <% end %> 
+
   <%= paginate @tasks %> 
 
 </table>

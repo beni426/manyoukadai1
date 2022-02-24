@@ -2,3 +2,8 @@
 <p>メールアドレス: <%= @user.email %></p>
 
  <%= link_to "タスクを新規作成", tasks_path %>
+<% if current_user.admin? %>
+<h3><%= @user.name %>は管理者です</h3>
+ <%= link_to "管理者画面", admin_users_path %>
+
+<% end %>
