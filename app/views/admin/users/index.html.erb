@@ -1,5 +1,5 @@
 <h1>管理画面のユーザー一覧画面</h1>
- <%= button_to '管理者登録', new_admin_user_path,method: :get %>
+ <%= button_to 'ユーザー作成', new_admin_user_path,method: :get %>
  <li> <%= button_to 'ユーザー一覧', admin_users_path(@users),method: :get %>
  <table>
  <tr>
@@ -7,6 +7,7 @@
     <th class='index'>ユーザー名前</th>
     <th class='index'>ユーザーemail</th>
     <th class='index'>ユーザーのタスクの数</th>
+    <th class='index'>管理者権限</th>
     <th colspan="3"></th>
   </tr>
 
@@ -16,10 +17,13 @@
     <td class='index'><%= user.name %></td>
     <td class='index'><%= user.email %></td>
     <td class='index'><%= user.tasks.count %></td>
+    <td class='index'><%= user.admin? %></td>
      <% if current_user.admin? %>
      <td class="index-content"><%= button_to "ユーザー詳細",admin_user_path(user.id),method: :get %></td>
     <td class="index-content"><%= button_to 'ユーザー編集', edit_admin_user_path(user.id),method: :get %></td>
+   
      <td class="index-content"><%= button_to '削除', admin_user_path(user.id), method: :delete ,data:{ confirm: '本当に削除していいですか？' } %></td>
+   
     <% end %>
 
 <% end %>

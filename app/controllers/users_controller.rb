@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  skip_before_action :login_required,only: [:new, :create]
+  skip_before_action :login_required,only: [:new, :create,:destroy]
+  before_action :admin_user,     only: :destroy
   def new
       @user= User.new
   end
@@ -15,10 +16,22 @@ class UsersController < ApplicationController
     end
   end
   def show
-       @user=User.find(params[:id])
+   @user=User.find(params[:id])
+   @task = @user.tasks
+  
    end
+   def destroy
+    @user=User.find(params[:id])
+    @user.destroy
+    flash[:danger] = "ユーザーを削除しました!"
+     redirect_to admin_users_path
+  end
   private
   def user_params
    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
+  def admin_user
+    redirect_to(root_url) unless current_user.admin?
+  end
+
 end

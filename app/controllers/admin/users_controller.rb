@@ -25,15 +25,16 @@ class Admin::UsersController < ApplicationController
 
   def update
    if @user.update(user_params)
-     redirect_to @user, notice: "ユーザー情報を編集しました!"
+     redirect_to admin_users_path, notice: "ユーザー情報を編集しました!"
+    
    else
      render :edit
    end
   end
   def destroy
-    @admin_user.destroy
+    @user.destroy
     flash[:danger] = "ユーザーを削除しました!"
-     redirect_to new_user_path
+     redirect_to admin_users_path
   end
   private
   def user_params
@@ -45,11 +46,8 @@ class Admin::UsersController < ApplicationController
   end
  
   def require_admin
-    if logged_in? && current_user.admin == true
-        redirect_to new_admin_user_path
-    else
-        render action: :edit
-        flash[:alert] = "管理者画面です"
+    unless logged_in? && current_user.admin == true
+        redirect_to tasks_path, flash[:danger] = "管理者以外はアクセスできない"
     end
-    end
+  end
 end
