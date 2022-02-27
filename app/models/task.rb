@@ -6,6 +6,8 @@ class Task < ApplicationRecord
     belongs_to  :user
     enum status: { todo: "todo", doing: "doing",done: "done" }
     enum priority: {low: 0, medium: 1, high: 2 }
+    has_many :labellings, dependent: :destroy
+    has_many :labels, through: :labellings
     scope :task_name_search, -> (query) {where("title LIKE ?", "%#{query}%")}
 	  def task_name_search(query)
 	  where("title LIKE ?", "%#{query}%")
