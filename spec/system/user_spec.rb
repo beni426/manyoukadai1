@@ -64,8 +64,12 @@ RSpec.describe 'ユーザー管理機能', type: :system do
           end
           context '管理ユーザは管理画面にアクセスできること' do
             it '管理ユーザはユーザの新規登録ができること' do
-              visit new_admin_user_path
-              expect(new_admin_user_path).to eq new_admin_user_path
+              visit new_session_path
+              fill_in 'Email', with: "login@example.com"
+              fill_in 'Password', with:"password"
+              click_on 'Log in'
+              click_on  '管理者画面'
+              click_on  'ユーザー作成'
               fill_in '名前',with: 'user'
               fill_in 'メールアドレス',with: 'user001@user.com'
               fill_in 'パスワード',with: '000000​'
@@ -85,7 +89,7 @@ RSpec.describe 'ユーザー管理機能', type: :system do
               click_on 'Log in'
               click_on  '管理者画面'
               click_on 'ユーザー詳細'
-              expect(page).to have_content 'ユーザーのページ'
+              expect(page).to have_content 'ユーザーの詳細ページです'
               
             end
           end

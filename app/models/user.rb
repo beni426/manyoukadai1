@@ -18,6 +18,6 @@ class User < ApplicationRecord
     end
     def admin_update
     
-      throw(:abort) if User.where(admin: true).count == 1 && self.admin == 'false'
+      throw(:abort) if User.where(admin: true).count == 1 && self.admin == 'false' && !( self.admin == @user)
     end 
 end  

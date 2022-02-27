@@ -3,6 +3,9 @@ class UsersController < ApplicationController
   before_action :admin_user,     only: :destroy
   def new
       @user= User.new
+      if logged_in?
+        redirect_to tasks_path
+      end
   end
   def create
      @user=User.new(user_params)
