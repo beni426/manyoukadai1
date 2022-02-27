@@ -1,0 +1,26 @@
+ <% if @user.id == current_user.id %>
+ <h1><%= @user.name %>のページ</h1>
+<p>メールアドレス: <%= @user.email %></p>
+
+ <%= link_to "タスクを新規作成", tasks_path %>
+
+   <% @task.each do |task| %>
+   <ul>
+    <li class="index-content"><%= task.title %><br>
+    <%= task.content %><br>
+    <%= task.expired_at.to_s(:datetime_jp) %> <br>
+    <%= task.status %><br>
+    <%= task.priority %></li> 
+     <% end %>  
+   </ul>
+
+<% if current_user.admin? %>
+<h3><%= @user.name %>は管理者です</h3>
+ <%= link_to "管理者画面", admin_users_path %>
+<% end %>
+<% else %>
+ <%= link_to "タスクを新規作成", tasks_path %>
+ <% end %>
+
+
+

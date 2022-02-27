@@ -1,0 +1,30 @@
+<div class="admin-form-wrapper">
+  <div class="admin-form-header">
+   
+  </div>
+  <%= form_with(model: @user,url: choose_new_or_edit, local: true, class: "login-form") do |form| %>
+      <% if @user.errors.any? %>
+    <div class="alert alert-danger alert-login">
+     <h3><%= pluralize(@user.errors.count, "error", locale: :en)  %> prohibited this <%= @user.name %> from being saved:</h3>
+     <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg%></li>
+       <% end %>
+    </ul>
+   </div>
+   <% end %>
+    <h2 class="login-form-subtitle">登録しているユーザーを編集する</h2>
+    <%= form.label :name, class: "sr-only" %>
+    <%= form.text_field :name, class: "form-control", placeholder: t("views.users.name"), required: true %><br>
+    <%= form.label :email, class: "sr-only" %>
+    <%= form.email_field :email, class: "form-control", placeholder: t("views.users.email"), required: true, autofocus: true %><br>
+    <%= form.label :password, class: "sr-only" %>
+    <%= form.password_field :password, class: "form-control", placeholder: 'password', required: true, minlength: 6 %><br>
+    <%= form.label :password, class: "sr-only" %>
+    <%= form.password_field :password_confirmation, class: "form-control", placeholder: 'password confirmation', required: true %><br>
+    <%= form.label :admin %>
+    <%= form.check_box :admin, {}, 'true', 'false' %>
+    <%= form.submit "更新", class: "btn-primary", id: "active-btn" %>
+   <%= button_to 'ユーザー一覧', @admin_user,method: :get %></td> 
+  <% end %>
+</div>

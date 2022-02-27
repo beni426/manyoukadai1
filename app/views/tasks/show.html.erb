@@ -1,5 +1,7 @@
 <h1><%= t("activerecord.models.task") %>詳細画面</h1>
 
+<p style='bold' > Posted by : <%= @task.user.name %></p><br/>
+
 <%= form_with(model: @task, local: true,class:"blog_wrapper") do |form| %>
   <%= form.hidden_field :title %>
   <%= form.hidden_field :content %>
@@ -9,4 +11,6 @@
   <p><%= t("activerecord.attributes.task.content") %>:<%= @task.content %></p>
   <p><%= t("activerecord.attributes.task.expired_at") %>:<%= @task.expired_at.to_s(:datetime_jp)  %></p>
   <p><%= t("activerecord.attributes.task.status") %>:<%= @task.status  %></p>
+  <p><%= t("activerecord.attributes.task.priority") %>:<%= @task.priority  %></p>
+
 <% end %>

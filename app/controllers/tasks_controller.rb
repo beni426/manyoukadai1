@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   # before_action :basic_authentication, only: :show
+  before_action :check_user, only: %i[edit update destroy]
   before_action :set_task, only: %i[show  edit update destroy]
   def index
     if params[:sort_expired]
@@ -16,14 +17,14 @@ class TasksController < ApplicationController
     elsif params[:sort_priority]
       @tasks = Task.all.page(params[:page]).per(3).order(priority: :desc)
     else
-      @tasks = Task.all.page(params[:page]).per(3).order(created_at: :desc)
+      @tasks = Task.all.includes(:user).page(params[:page]).per(3).order(created_at: :desc)
     end
   end
   def new
     @task =Task.new
   end
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.create(task_params)
     if params[:back]
       render :new
     else
@@ -35,6 +36,7 @@ class TasksController < ApplicationController
     end
   end
   def show
+    @tasks = Task.where(user_id: @task.user.id).order(created_at: :desc)
   end
   def edit
   end
@@ -61,6 +63,11 @@ class TasksController < ApplicationController
   end
   def set_task
     @task = Task.find(params[:id])
+  end
+  def check_user
+    if @current_user.nil?
+     redirect_to new_session_path unless logged_in?
+    end
   end
 end
 

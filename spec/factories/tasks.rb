@@ -4,7 +4,7 @@ FactoryBot.define do
     content { 'undefined1' }
     expired_at  { '2020/12/01' }
     status { 'todo' }
-    
+    association :user, factory: :user
   end
 
   factory :second_task, class: Task do
@@ -12,6 +12,6 @@ FactoryBot.define do
     content { 'undefined2' }
     expired_at { '2020/12/02' }
     status { 'done' }
-    
+    association :user, factory: :user
   end
 end

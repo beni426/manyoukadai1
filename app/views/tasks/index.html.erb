@@ -1,5 +1,5 @@
 <h1 class="title" > <%= t("activerecord.models.task") %>一覧</h1>
-<p><%= notice %></p>
+
 <div class ='search-container' >
   <div>
    <%= form_with url: tasks_path, method: :get ,class:'row', local: true do |form| %>
@@ -27,9 +27,11 @@
     <th class='index'><%= link_to "終了期限", tasks_path(sort_expired: "true"),class:'btn btn-primary' %></th>
     <th class='index'><%= t("activerecord.attributes.task.status") %></th>
     <th class='index'><%= link_to "優先順位", tasks_path(sort_priority: "true"),class:'btn btn-primary' %></th>
+    <th class='index'>投稿ユーザー</th>
     <th colspan="3"></th>
 
    </tr>
+
  <% @tasks.each do |task| %>
     <tr>
       <td class="index-content"><%= task.title %></td>
@@ -37,11 +39,13 @@
       <td class="index-content"><%= task.expired_at.to_s(:datetime_jp) %> </td>
       <td class="index-content"><%= task.status %></td>
       <td class="index-content"><%= task.priority %></td>
+      <td class="index-content"><%= task.user.name %></td>
       <td class="index-content"><%= button_to t('tasks.show.title'), task_path(task.id),method: :get %></td>
       <td class="index-content"><%= button_to t('tasks.edit.title'), edit_task_path(task.id),method: :get %></td>
       <td class="index-content"><%= button_to t('tasks.destroy.title'), task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %></td> 
     </tr>
  <% end %> 
+
   <%= paginate @tasks %> 
 
 </table>
