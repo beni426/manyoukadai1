@@ -12,14 +12,7 @@ users= [
     users.each do |record|
      User.create!(record) unless User.find_by(email: record[:email])
     end
-    10.times do |index|
-      User.create!(
-          name: Faker::Name.name,
-          email: Faker::Internet.email,
-          password: "password",
-          password_confirmation: "password",
-      )
-     end
+
   10.times do |id|
     Label.create!(
                id: id,
@@ -28,4 +21,12 @@ users= [
   end
   10.times do |n|
     Labelling.create!(task_id: 1, label_id: rand(1..3))
-  end 
+  end
+  10.times do |index|
+    User.create!(
+        name: Faker::Name.name,
+        email: Faker::Internet.email,
+        password: "password",
+        password_confirmation: "password",
+    )
+   end
