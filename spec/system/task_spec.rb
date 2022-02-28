@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'タスク管理機能', type: :system do
-
+  let!(:task) { FactoryBot.create(:task, title: "test1", content: 'tsrs is test1', expired_at: "2/24", status: "todo",priority: 0 ) }
    let!(:login_user) { FactoryBot.create(:user, name: "ユーザー", email: "login@example.com", password: "password", password_confirmation: "password") }
-   let!(:task) { FactoryBot.create(:task, title: "test1", content: 'tsrs is test1', expired_at: "2/24", status: "todo",priority: 0) }
+   let!(:task) { FactoryBot.create(:task, title: "test1", content: 'tsrs is test1', expired_at: "2/24", status: "todo",priority: 0 ) }
+
   describe '検索機能' do
     before do
       visit new_session_path
@@ -51,7 +52,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         fill_in 'タイトル', with: 'test1'
         fill_in '詳細', with: 'tsrs is test1'
         fill_in '終了期限', with: '2/12'
-       select 'todo',from: :ステータス
+        select 'todo',from: :ステータス
         click_button '登録'
         expect(page).to have_content 'タスクを作成しました!'
         expect(current_path).to eq '/tasks'

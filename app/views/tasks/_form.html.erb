@@ -29,6 +29,10 @@
     <%= form.label :priority %>
     <%= form.select :priority, ['low','medium','high'] %>
   </div>
+    <div>
+    <%= form.label :label %>
+    <%= form.collection_check_boxes(:label_ids, Label.all, :id, :name) %>
+    </div>
   <%= form.submit %>
 <% end %>
 <%= link_to "タスク一覧画面にもどる", tasks_path %>

@@ -7,10 +7,16 @@
   <%= form.hidden_field :content %>
   <%= form.hidden_field :expired_at %>
   <%= form.hidden_field :status %>
+  <%= form.hidden_field :priority %>
+  <%= form.hidden_field :label %>
+
   <p><%= t("activerecord.attributes.task.title") %>:<%= @task.title %></p>
   <p><%= t("activerecord.attributes.task.content") %>:<%= @task.content %></p>
   <p><%= t("activerecord.attributes.task.expired_at") %>:<%= @task.expired_at.to_s(:datetime_jp)  %></p>
   <p><%= t("activerecord.attributes.task.status") %>:<%= @task.status  %></p>
   <p><%= t("activerecord.attributes.task.priority") %>:<%= @task.priority  %></p>
+  <p><%= t("activerecord.attributes.task.label") %>:<% @task.labels.each do |label| %>
+                                                    <span><%= label.name %></span>
+                                                     <% end %></p>
 
 <% end %>

@@ -17,4 +17,8 @@ class Task < ApplicationRecord
    def status_search(query)
     where(status: query)
    end
+   scope :label_search, -> (query) {where(label: query)}
+   def label_search(query)
+    where(label: query)
+   end
 end
