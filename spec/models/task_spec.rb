@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  let!(:task) { FactoryBot.create(:task, title: 'task',status:'todo') }
+  let!(:task) { FactoryBot.create(:task, title: 'task',content: 'task to content', expired_at: "2/22",status:'todo') }
 
   describe '検索機能' do
     # before do

@@ -3,13 +3,17 @@
 <div class ='search-container' >
   <div>
    <%= form_with url: tasks_path, method: :get ,class:'row', local: true do |form| %>
-   <div class="col-md-4">
+   <div class="col-md-3">
      <%= form.label :task_title, "Task Title:" %>
     <%= form.text_field :title, placeholder: "検索..." %>
    </div>
-   <div class="col-md-4">
+   <div class="col-md-3">
   <%= form.label :status, t("activerecord.attributes.task.status")  %>
   <%= form.select :status, options_for_select([[''], ["todo"],["doing"], ["done"]])%>
+  </div>
+  <div class="col-md-3">
+  <%= form.label :label, t("activerecord.attributes.task.label")  %>
+   <%= form.select("label_id", Label.pluck(:name, :id), { include_blank: true }) %>
   </div>
   <div class="col-md-3">
   <%= form.submit value: "search", type: "submit" %>
@@ -24,6 +28,7 @@
   <tr>
     <th class='index'><%= t("activerecord.attributes.task.title") %></th>
     <th class='index'><%= t("activerecord.attributes.task.content") %></th>
+    <th class='index'><%= t("activerecord.attributes.task.label") %></th>
     <th class='index'><%= link_to "終了期限", tasks_path(sort_expired: "true"),class:'btn btn-primary' %></th>
     <th class='index'><%= t("activerecord.attributes.task.status") %></th>
     <th class='index'><%= link_to "優先順位", tasks_path(sort_priority: "true"),class:'btn btn-primary' %></th>
@@ -36,6 +41,9 @@
     <tr>
       <td class="index-content"><%= task.title %></td>
       <td class="index-content"><%= task.content %></td>
+        <td><% task.labels.each do |label| %>
+           <%= label.name %>
+           <% end %></td>
       <td class="index-content"><%= task.expired_at.to_s(:datetime_jp) %> </td>
       <td class="index-content"><%= task.status %></td>
       <td class="index-content"><%= task.priority %></td>
@@ -43,9 +51,8 @@
       <td class="index-content"><%= button_to t('tasks.show.title'), task_path(task.id),method: :get %></td>
       <td class="index-content"><%= button_to t('tasks.edit.title'), edit_task_path(task.id),method: :get %></td>
       <td class="index-content"><%= button_to t('tasks.destroy.title'), task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %></td> 
-    </tr>
- <% end %> 
-
+</tr><% end %> 
+      
   <%= paginate @tasks %> 
 
 </table>

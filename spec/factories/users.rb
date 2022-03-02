@@ -5,6 +5,7 @@ FactoryBot.define do
     password { "password" }
     password_confirmation {"password"}
     admin { 'true'}
+  
   end
   factory :login_user, class: User do
     name { "user2" }
@@ -12,5 +13,6 @@ FactoryBot.define do
     password { "password" }
     password_confirmation {"password"}
     admin {'true'}
+   
   end
 end

@@ -8,12 +8,13 @@ class TasksController < ApplicationController
     elsif params[:title].present?
       if params[:status].present?
         @tasks = Task.all.task_name_search(params[:title]).status_search(params[:status]).page(params[:page]).per(10)
-        
       else
         @tasks = Task.all.task_name_search(params[:title]).page(params[:page]).per(3)
       end
     elsif params[:status].present?
       @tasks = Task.all.status_search(params[:status]).page(params[:page]).per(3)
+    elsif params[:label_id].present?
+      @tasks = Task.all.joins(:labels).where(labels: { id: params[:label_id] }).page(params[:page]).per(2)
     elsif params[:sort_priority]
       @tasks = Task.all.page(params[:page]).per(3).order(priority: :desc)
     else
@@ -58,7 +59,8 @@ class TasksController < ApplicationController
        :content,
        :expired_at,
        :status,
-       :priority 
+       :priority,
+       { label_ids: [] } 
       )
   end
   def set_task
