@@ -7,6 +7,13 @@ task table
 |     |         |        |
 _____________
 
+user table
+| id | culumn  | type  |
+|----| ------- |-------|
+|    |  name   | string|
+|    |  email  | string|
+|    | passwrod| string|
+
 # Heroku deploy steps
 _____________
 ####  application のディレクトリの直下で操作してください。
