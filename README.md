@@ -17,24 +17,24 @@ user table
 # Heroku deploy steps
 _____________
 ####  application のディレクトリの直下で操作してください。<br>
-git add .コマンドで実行したフォルダ下のすべてのファイルをステージングエリア
-に移動しcommitの対象とした後、commitでメッセージをつけてリポジトリに登録します
-#####　1.1  $ git add -A
+git add .コマンドで実行したフォルダ下のすべてのファイルをステージングエリア<br>
+に移動しcommitの対象とした後、commitでメッセージをつけてリポジトリに登録します<br>
+#####　1.1  $ git add -A<br>
 #####　1.2  $ git commit -m'メッセージ'<br>
-Herokuにログイン
+Herokuにログイン<br>
 #####　1.3  $ heroku login<br>
-herokuで新しいアプリケーションを作成
+herokuで新しいアプリケーションを作成<br>
 #####　1.4  $ heroku create<br>
-Herokuでのリポジトリを確認
+Herokuでのリポジトリを確認<br>
 #####  1.5  $ git remote -v<br>
-アセットプリコンパイル,アセットを本番環境で実行できる形式に変換する
+アセットプリコンパイル,アセットを本番環境で実行できる形式に変換する<br>
 #####　1.6  $ rails assets:precompile RAILS_ENV=production<br>
-masterブランチからHerokuのmasterブランチにプッシュする時
+masterブランチからHerokuのmasterブランチにプッシュする時<br>
 #####　1.7　$　git push heroku master<br>
-masterブランチ以外のブランチからherokuにプッシュする時
-#####　　1.7.1　$　git branch で　branch名を確認
-#####　　1.7.2　$　git push heroku branch名:master
-#### 以上でHerokuでdeployすることができます
+masterブランチ以外のブランチからherokuにプッシュする時<br>
+#####　　1.7.1　$　git branch で　branch名を確認<br>
+#####　　1.7.2　$　git push heroku branch名:master<br>
+#### 以上でHerokuでdeployすることができます<br>
 ------
 ####  環境構築
 Ruby on Rails application that runs on the following software:
